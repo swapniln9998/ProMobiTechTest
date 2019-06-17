@@ -24,8 +24,6 @@ import java.util.ArrayList
 
 class BookListFragment : Fragment() {
 
-
-    private var rvBooksList: RecyclerView? = null
     private var mViewModel: BookListViewModel? = null
     private var bookAdapter: BookAdapter? = null
     private var booksItems: ArrayList<BooksItem>? = null
@@ -35,26 +33,26 @@ class BookListFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.book_list_fragment, container, false)
 
-
         // init viewModel
         mViewModel = ViewModelProviders.of(this).get(BookListViewModel::class.java)
 
+        return view
+    }
 
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         booksItems = ArrayList()
         bookAdapter = BookAdapter(booksItems!!)
 
+
         // using kotlinx synthetic for view binding
-        rvBooksList = view.findViewById(R.id.rvBooksList);
-        rvBooksList?.layoutManager = LinearLayoutManager(context)
-        rvBooksList?.setHasFixedSize(true)
-        rvBooksList?.adapter = bookAdapter
-
+        rvBooksList.layoutManager = LinearLayoutManager(context)
+        rvBooksList.setHasFixedSize(true)
+        rvBooksList.adapter = bookAdapter
         refreshAdapter()
-
-        return view
     }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
